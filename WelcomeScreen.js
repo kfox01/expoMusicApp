@@ -36,15 +36,9 @@ const WelcomeScreen = ({ onGO }) => {
           console.log('User logged in successfully', data.username);
           //onGO is used in app.js to store the logged in username
           onGO({ username: data.username });
-        } else {
-          console.error('Error logging in', data.error);
-        }
-      } else {
-        console.error('Error logging in:', response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error('Error during request:', error);
-    }
+        } else { console.error('Error logging in', data.error); }
+      } else { console.error('Error logging in:', response.status, response.statusText); }
+    } catch (error) { console.error('Error during request:', error); }
   };
   //function called when the user submits entries in registration view
   const handleRegister = async () => {
@@ -69,15 +63,9 @@ const WelcomeScreen = ({ onGO }) => {
           console.log('User logged in successfully', data.username);
           //again, onGO used to send the entered username to app.js
           onGO({ username: data.username });
-        } else {
-          console.error('Error logging in', data.error);
-        }
-      } else {
-        console.error('Error logging in:', response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error('Error during request:', error);
-    }
+        } else { console.error('Error logging in', data.error); }
+      } else { console.error('Error logging in:', response.status, response.statusText); }
+    } catch (error) { console.error('Error during request:', error); }
   };
   //navigation system used throughout app, constantly using States
   //and setting new screens when users click buttons in selected views
@@ -94,17 +82,9 @@ const WelcomeScreen = ({ onGO }) => {
         <View>
           <Button title="Register here" onPress={() => navigateToScreen('Registration')} />
           <Text>LOGIN</Text>
+          <TextInput placeholder="Enter your username" value={logUsername} onChangeText={setLogUsername} />
           <TextInput
-            placeholder="Enter your username"
-            value={logUsername}
-            onChangeText={setLogUsername}
-          />
-          <TextInput
-            placeholder="Enter your password"
-            secureTextEntry
-            value={logPassword}
-            onChangeText={setLogPassword}
-          />
+            placeholder="Enter your password" secureTextEntry value={logPassword} onChangeText={setLogPassword} />
           <Button title="LOGIN" onPress={handleLogin} />
         </View>
       )}
@@ -112,23 +92,9 @@ const WelcomeScreen = ({ onGO }) => {
         <View>
           <Button title="Login here" onPress={() => navigateToScreen('Login')} />
           <Text>Registration</Text>
-          <TextInput
-            placeholder="Enter your username"
-            value={regUsername}
-            onChangeText={setRegUsername}
-          />
-          <TextInput
-            placeholder="Enter your password"
-            secureTextEntry
-            value={regPassword}
-            onChangeText={setRegPassword}
-          />
-          <TextInput
-            placeholder="Confirm your password"
-            secureTextEntry
-            value={cPassword}
-            onChangeText={setCPassword}
-          />
+          <TextInput placeholder="Enter your username" value={regUsername} onChangeText={setRegUsername} />
+          <TextInput placeholder="Enter your password" secureTextEntry value={regPassword} onChangeText={setRegPassword} />
+          <TextInput placeholder="Confirm your password" secureTextEntry value={cPassword} onChangeText={setCPassword} />
           <Button title="REGISTER" onPress={handleRegister} />
         </View>
       )}

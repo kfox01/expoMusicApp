@@ -1,6 +1,7 @@
 //imports for react and react-native features used
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, FlatList, Button, ScrollView } from 'react-native';
+import UpdateScreen from './UpdateScreen'
 
 const ListScreen = () => {
   //used to check if the data is being accessed
@@ -13,9 +14,7 @@ const ListScreen = () => {
   const [updateSong, setUpdateSong] = useState(null);
   //holds the info for the song the user is trying to delete, most importantly, song id
   const [deleteSong, setDeleteSong] = useState(null);
-
-  useEffect(() => {
-    //method of accessing the ratings table and displaying songs using the endpoint song/list and appropriate method
+  const fetchSongs = () => {
     fetch("http://172.21.196.65/index.php/song/list", {
       method: "GET", // You are making a GET request
       headers: {
@@ -31,7 +30,10 @@ const ListScreen = () => {
       .catch((error) => console.error("Error fetching data:", error))
       //turns off the loading state and sends the user to the list screen
       .finally(() => setLoading(false));
-  }, []);
+  }
+  useEffect(() => {
+    fetchSongs(); }, []);
+
   //method of displaying songs within the FlatList in the list view, broken down into its components;
   //user, title, artist, rating, and then buttons to update the song and delete song, which should
   //only be prompted when the loggedInUsername matches the item.user from the song
@@ -59,9 +61,9 @@ const ListScreen = () => {
     console.log('Delete button clicked for item ID:', itemId);
   };
 
-  /* const navigateToScreen = (screen) => {
+   const navigateToScreen = (screen) => {
     setScreen(screen);
-  }; */
+  }; 
 
   //view with conditional navigation to move between song list, update and delete song
   return (
@@ -73,7 +75,10 @@ const ListScreen = () => {
               <FlatList data={songs} renderItem={renderItem} keyExtractor={(item) => item.id.toString()} />
             )}
             {screen === 'Update' && (
-              <Text>Update</Text>
+              <View>
+                <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
+                <UpdateScreen song={updateSong} onSongUpdated={fetchSongs} />
+              </View>
             )}
             {screen === 'Delete' && (
               <Text>Delete</Text>

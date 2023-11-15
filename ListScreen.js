@@ -4,7 +4,7 @@ import { StyleSheet, SafeAreaView, View, Text, FlatList, Button, ScrollView } fr
 import UpdateScreen from './UpdateScreen'
 import DeleteScreen from './DeleteScreen'
 
-const ListScreen = () => {
+const ListScreen = ({loggedInUsername}) => {
   //used to check if the data is being accessed
   const [isLoading, setLoading] = useState(true);
   //holds the list of songs that is retrieved from the ratings table if the fetch is successful
@@ -44,8 +44,12 @@ const ListScreen = () => {
       <Text>Title: {item.title}</Text>
       <Text>Artist: {item.artist}</Text>
       <Text>Rating: {item.rating}</Text>
-      <Button title="Update" onPress={() => handleUpdate(item)} />
-      <Button title="Delete" onPress={() => handleDelete(item)} />
+      {item.user === loggedInUsername && (
+      <>
+        <Button title="Update" onPress={() => handleUpdate(item)} />
+        <Button title="Delete" onPress={() => handleDelete(item)} />
+      </>
+    )}
     </View>
   );
   //used to switch to the update song view, sets updateSong to the song at which it was chosen,

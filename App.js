@@ -12,7 +12,6 @@ const App = () => {
   const [screen, setScreen] = useState('Welcome');
   //keeps track of the logged in user to be given for adding songs, updating, etc.
   const [loggedInUsername, setLoggedInUsername] = useState('');
-
   //navigation system used throughout app, constantly using States
   //and setting new screens when users click buttons in selected views
   const navigateToScreen = (screen) => {
@@ -26,12 +25,7 @@ const App = () => {
       <View>
         {screen === 'Welcome' && (
           <View>
-            <WelcomeScreen
-              onGO={(user) => {
-                setLoggedInUsername(user.username);
-                navigateToScreen('List');
-              }}
-            />
+            <WelcomeScreen onGO={(user) => { setLoggedInUsername(user.username); navigateToScreen('List'); }} />
             <Button title="TO HOME" onPress={() => navigateToScreen('Home')} />
             <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
           </View>
@@ -59,7 +53,6 @@ const App = () => {
           <View>
             <Button title="BACK TO SONGLIST" onPress={() => navigateToScreen('List')} />
             <AddScreen loggedInUsername={loggedInUsername} />
-
           </View>)}
       </View>
     </SafeAreaView>

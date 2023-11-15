@@ -70,11 +70,7 @@ const ListScreen = () => {
         {isLoading ? (<Text>Loading...</Text>) : (
           <View>
             {screen === 'List' && (
-              <FlatList
-                data={songs}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
-              />
+              <FlatList data={songs} renderItem={renderItem} keyExtractor={(item) => item.id.toString()} />
             )}
             {screen === 'Update' && (
               <Text>Update</Text>

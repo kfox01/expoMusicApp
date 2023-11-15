@@ -27,22 +27,13 @@ const App = () => {
         {screen === 'Welcome' && (
           <View>
             <WelcomeScreen onGO={(user) => { setLoggedInUsername(user.username); navigateToScreen('Home'); }} />
-            <Button title="TO HOME" onPress={() => navigateToScreen('Home')} />
-            <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
           </View>
         )}
         {screen === 'Home' && (
           <View>
             <Text>This is the Home Screen</Text>
-            <Button title="TO DETAILS" onPress={() => navigateToScreen('Details')} />
             <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
             <Button title="TO TOP RANKINGS" onPress={() => navigateToScreen('Top')} />
-          </View>
-        )}
-        {screen === 'Details' && (
-          <View>
-            <Text>This is the Details Screen</Text>
-            <Button title="BACK TO HOME" onPress={() => navigateToScreen('Home')} />
           </View>
         )}
         {screen === 'List' && (

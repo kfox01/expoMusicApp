@@ -1,20 +1,63 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, View, Button, Text } from 'react-native';
+import ListScreen from './ListScreen';
+import AddScreen from './AddScreen';
+import WelcomeScreen from './WelcomeScreen';
 
-export default function App() {
+const App = () => {
+  //need to make base state the login state so that the user is automatically prompted to login
+  const [screen, setScreen] = useState('Welcome');
+  const [loggedInUsername, setLoggedInUsername] = useState('');
+
+  const navigateToScreen = (screen) => {
+    setScreen(screen);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <SafeAreaView>
+      <View>
+        {screen === 'Welcome' && (
+          <View>
+            <WelcomeScreen
+              onGO={(user) => {
+                setLoggedInUsername(user.username);
+                navigateToScreen('List');
+              }}
+            />
+            <Button title="TO HOME" onPress={() => navigateToScreen('Home')} />
+            {/*navigation method to change the screen to the song list*/}
+            <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
+          </View>
+        )}
+        {screen === 'Home' && (
+          <View>
+            <Text>This is the Home Screen</Text>
+            <Button title="TO DETAILS" onPress={() => navigateToScreen('Details')} />
+            <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
+          </View>
+        )}
+        {screen === 'Details' && (
+          <View>
+            <Text>This is the Details Screen</Text>
+            <Button title="BACK TO HOME" onPress={() => navigateToScreen('Home')} />
+          </View>
+        )}
+        {screen === 'List' && (
+          <View>
+            <Text>Welcome, {loggedInUsername}!</Text>
+            <Button title="ADD SONG" onPress={() => navigateToScreen('Add')} />
+            <ListScreen loggedInUsername={loggedInUsername} />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+          </View>)}
+        {screen === 'Add' && (
+          <View>
+            <Button title="BACK TO SONGLIST" onPress={() => navigateToScreen('List')} />
+            <AddScreen loggedInUsername={loggedInUsername} />
+
+          </View>)}
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default App;

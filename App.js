@@ -5,6 +5,7 @@ import { SafeAreaView, View, Button, Text } from 'react-native';
 import ListScreen from './ListScreen';
 import AddScreen from './AddScreen';
 import WelcomeScreen from './WelcomeScreen';
+import TopScreen from './NewFeatureScreen';
 
 const App = () => {
   //screen used for navigation, always dictating which view the user is being shown
@@ -25,7 +26,7 @@ const App = () => {
       <View>
         {screen === 'Welcome' && (
           <View>
-            <WelcomeScreen onGO={(user) => { setLoggedInUsername(user.username); navigateToScreen('List'); }} />
+            <WelcomeScreen onGO={(user) => { setLoggedInUsername(user.username); navigateToScreen('Home'); }} />
             <Button title="TO HOME" onPress={() => navigateToScreen('Home')} />
             <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
           </View>
@@ -35,6 +36,7 @@ const App = () => {
             <Text>This is the Home Screen</Text>
             <Button title="TO DETAILS" onPress={() => navigateToScreen('Details')} />
             <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
+            <Button title="TO TOP RANKINGS" onPress={() => navigateToScreen('Top')} />
           </View>
         )}
         {screen === 'Details' && (
@@ -46,9 +48,17 @@ const App = () => {
         {screen === 'List' && (
           <View>
             <Text>Welcome, {loggedInUsername}!</Text>
+            <Button title="BACK TO HOME" onPress={() => navigateToScreen('Home')} />
             <Button title="ADD SONG" onPress={() => navigateToScreen('Add')} />
             <ListScreen loggedInUsername={loggedInUsername} />
           </View>)}
+          {screen === 'Top' && (
+          <View>
+            <Text>Welcome, {loggedInUsername}!</Text>
+            <Button title="BACK TO HOME" onPress={() => navigateToScreen('Home')} />
+            <TopScreen/>
+          </View>)}
+
         {screen === 'Add' && (
           <View>
             <Button title="BACK TO SONGLIST" onPress={() => navigateToScreen('List')} />

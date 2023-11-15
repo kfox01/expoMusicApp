@@ -1,18 +1,26 @@
+//necessary react and react native imports from corresponding libraries
 import React, { useState } from 'react';
 import { SafeAreaView, View, Button, Text } from 'react-native';
+//importing children views that are required for navigation from home
 import ListScreen from './ListScreen';
 import AddScreen from './AddScreen';
 import WelcomeScreen from './WelcomeScreen';
 
 const App = () => {
-  //need to make base state the login state so that the user is automatically prompted to login
+  //screen used for navigation, always dictating which view the user is being shown
+  //set to Welcome at the start because the user must first login/register to begin
   const [screen, setScreen] = useState('Welcome');
+  //keeps track of the logged in user to be given for adding songs, updating, etc.
   const [loggedInUsername, setLoggedInUsername] = useState('');
 
+  //navigation system used throughout app, constantly using States
+  //and setting new screens when users click buttons in selected views
   const navigateToScreen = (screen) => {
     setScreen(screen);
   };
-
+  //view containing the multiple children views of welcome (initial)
+  //listScreen contains the song list, and a button to addSong
+  //addScreen allows the user to add a new song, and redirects to AddScreen
   return (
     <SafeAreaView>
       <View>
@@ -25,7 +33,6 @@ const App = () => {
               }}
             />
             <Button title="TO HOME" onPress={() => navigateToScreen('Home')} />
-            {/*navigation method to change the screen to the song list*/}
             <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
           </View>
         )}
@@ -47,7 +54,6 @@ const App = () => {
             <Text>Welcome, {loggedInUsername}!</Text>
             <Button title="ADD SONG" onPress={() => navigateToScreen('Add')} />
             <ListScreen loggedInUsername={loggedInUsername} />
-
           </View>)}
         {screen === 'Add' && (
           <View>

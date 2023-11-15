@@ -31,17 +31,17 @@ const UpdateScreen = ({ song, onSongUpdated }) => {
       //checking to make sure fetch went successfully, and song is added
       if (response.ok) {
         // Successfully added the song
-        Alert.alert('Success', 'Song added successfully');
+        Alert.alert('Success', 'Song updated successfully');
         onSongUpdated();
       } else {
         //checking errors
         const errorData = await response.json();
-        Alert.alert('Error', `Failed to add song: ${errorData.message}`);
+        Alert.alert('Error', `Failed to update song: ${errorData.message}`);
       }
     } catch (error) {
       //checking errors
-      console.error('Error adding song:', error);
-      Alert.alert('Error', 'Failed to add song. Please try again.');
+      console.error('Error updating song:', error);
+      Alert.alert('Error', 'Failed to update song. Please try again.');
     }
   };
   //Simply contains the text inputs for the user to add, then 

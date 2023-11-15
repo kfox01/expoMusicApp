@@ -4,23 +4,22 @@ import { View, Text, TextInput, Button, Alert } from 'react-native';
 //UpdateScreen takes in loggedInUsername from app.js to be used when adding song
 const UpdateScreen = ({ song, onSongUpdated }) => {
   //keeping track of the user inputted entries for required fields
-  //of the addSong backend; title, artist, rating
+  //of the updateSong backend; title, artist, rating
   const [newTitle, setNewTitle] = useState(song.title);
   const [newArtist, setNewArtist] = useState(song.artist);
   const [newRating, setNewRating] = useState(song.rating);
   
   const handleUpdateSong = async () => {
     try {
-      //accessing the database with the endpoint song/create
-      //giving appropriate POST method
+      //accessing the database with the endpoint song/edit
+      //giving appropriate PUT method
       const response = await fetch("http://172.21.196.65/index.php/song/edit", {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         //giving the appropriate entries to the createAction in backend
-        //loggedInUsername used here coming from the app.js, rest of entries
-        //come from the text inputs in view below
+        //id given so the backend knows which song to edit
         body: JSON.stringify({
           id: song.id,
           title: newTitle,
@@ -28,9 +27,9 @@ const UpdateScreen = ({ song, onSongUpdated }) => {
           rating: newRating,
         }),
       });
-      //checking to make sure fetch went successfully, and song is added
+      //checking to make sure fetch went successfully, and song is updated
       if (response.ok) {
-        // Successfully added the song
+        // Successfully updated the song
         Alert.alert('Success', 'Song updated successfully');
         onSongUpdated();
       } else {
@@ -44,7 +43,7 @@ const UpdateScreen = ({ song, onSongUpdated }) => {
       Alert.alert('Error', 'Failed to update song. Please try again.');
     }
   };
-  //Simply contains the text inputs for the user to add, then 
+  //Simply contains the text inputs for the user to update, then 
   //on submit these entries are sent along with user to be added
   //to the ratings table of our database
   return (

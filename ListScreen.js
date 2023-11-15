@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, FlatList, Button, ScrollView } from 'react-native';
 import UpdateScreen from './UpdateScreen'
+import DeleteScreen from './DeleteScreen'
 
 const ListScreen = () => {
   //used to check if the data is being accessed
@@ -55,10 +56,10 @@ const ListScreen = () => {
     console.log('Update button clicked for:', item);
   };
   //used to switch to the delete song view, sets the ID of the song to the DeleteSong, which will be sent with the deleteview
-  const handleDelete = (itemId) => {
+  const handleDelete = (item) => {
     setScreen('Delete');
-    setDeleteSong(itemId);
-    console.log('Delete button clicked for item ID:', itemId);
+    setDeleteSong(item);
+    console.log('Delete button clicked for item ID:', item);
   };
 
    const navigateToScreen = (screen) => {
@@ -81,7 +82,10 @@ const ListScreen = () => {
               </View>
             )}
             {screen === 'Delete' && (
-              <Text>Delete</Text>
+              <View> 
+                <Button title="TO SONGLIST" onPress={() => navigateToScreen('List')} />
+                <DeleteScreen song={deleteSong} onDeleteSuccess={fetchSongs} onDeleteCancel={() => navigateToScreen('List')} />
+              </View>
             )}
           </View>
         )}
